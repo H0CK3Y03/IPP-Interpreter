@@ -1,0 +1,4 @@
+lark==1.2.2
+parglare==0.18.0
+parsy==2.1
+pyparsing==3.2.1

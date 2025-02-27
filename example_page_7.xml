@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="SOL25" description="&lt;- definice metody - bezparametrický selektor run">
+  <class name="Main" parent="Object">
+    <method selector="run">
+      <block arity="0">
+        <assign order="1">
+          <var name="x" />
+          <expr>
+            <send selector="compute:and:and:">
+              <expr>
+                <var name="self" />
+              </expr>
+              <arg order="1">
+                <expr>
+                  <literal class="Integer" value="3" />
+                </expr>
+              </arg>
+              <arg order="2">
+                <expr>
+                  <literal class="Integer" value="2" />
+                </expr>
+              </arg>
+              <arg order="3">
+                <expr>
+                  <literal class="Integer" value="5" />
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+        <assign order="2">
+          <var name="x" />
+          <expr>
+            <send selector="plusOne:">
+              <expr>
+                <var name="self" />
+              </expr>
+              <arg order="1">
+                <expr>
+                  <send selector="vysl">
+                    <expr>
+                      <var name="self" />
+                    </expr>
+                  </send>
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+        <assign order="3">
+          <var name="y" />
+          <expr>
+            <send selector="asString">
+              <expr>
+                <var name="x" />
+              </expr>
+            </send>
+          </expr>
+        </assign>
+      </block>
+    </method>
+
+    <method selector="plusOne:">
+      <block arity="1">
+        <parameter order="1" name="x" />
+        <assign order="1">
+          <var name="r" />
+          <expr>
+            <send selector="plus:">
+              <expr>
+                <var name="x" />
+              </expr>
+              <arg order="1">
+                <expr>
+                  <literal class="Integer" value="1" />
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+      </block>
+    </method>
+
+    <method selector="compute:and:and:">
+      <block arity="3">
+        <parameter name="x" order="1" />
+        <parameter name="y" order="2" />
+        <parameter name="z" order="3" />
+        <assign order="1">
+          <var name="a" />
+          <expr>
+            <send selector="plus:">
+              <expr>
+                <var name="x" />
+              </expr>
+              <arg order="1">
+                <expr>
+                  <var name="y" />
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+        <assign order="2">
+          <var name="_" />
+          <expr>
+            <send selector="vysl:">
+              <expr>
+                <var name="self" />
+              </expr>
+              <arg order="1">
+                <expr>
+                  <var name="a" />
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+        <assign order="3">
+          <var name="_" />
+          <expr>
+            <send selector="ifTrue:ifFalse:">
+              <expr>
+                <send selector="greaterThan:">
+                  <expr>
+                    <send selector="vysl">
+                      <expr>
+                        <var name="self" />
+                      </expr>
+                    </send>
+                  </expr>
+                  <arg order="1">
+                    <expr>
+                      <literal class="Integer" value="0" />
+                    </expr>
+                  </arg>
+                </send>
+              </expr>
+              <arg order="1">
+                <expr>
+                  <block arity="0">
+                    <assign order="1">
+                      <var name="u" />
+                      <expr>
+                        <send selector="vysl:">
+                          <expr>
+                            <var name="self" />
+                          </expr>
+                          <arg order="1">
+                            <expr>
+                              <literal class="Integer" value="1" />
+                            </expr>
+                          </arg>
+                        </send>
+                      </expr>
+                    </assign>
+                  </block>
+                </expr>
+              </arg>
+              <arg order="2">
+                <expr>
+                  <block arity="0" />
+                </expr>
+              </arg>
+            </send>
+          </expr>
+        </assign>
+      </block>
+    </method>
+  </class>
+</program>
