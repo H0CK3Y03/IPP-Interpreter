@@ -1,0 +1,116 @@
+program
+  class
+    Main
+    Object
+    method
+      selector	run
+      block
+        statement
+          x
+          expression
+            exprbase
+              literal
+            exprtail
+              exprsel
+                compute
+                exprbase
+                  literal	3
+                and
+                exprbase
+                  literal	2
+                and
+                exprbase
+                  literal	5
+        statement
+          x
+          expression
+            exprbase
+              literal
+            exprtail
+              exprsel
+                plusOne
+                exprbase
+                  expression
+                    exprbase
+                      literal
+                    exprtail	vysl
+        statement
+          y
+          expression
+            exprbase	x
+            exprtail	asString
+    method
+      selector	plusOne
+      block
+        parameter	x
+        statement
+          r
+          expression
+            exprbase	x
+            exprtail
+              exprsel
+                plus
+                exprbase
+                  literal	1
+    method
+      selector
+        compute
+        and
+        and
+      block
+        parameter	x
+        parameter	y
+        parameter	z
+        statement
+          a
+          expression
+            exprbase	x
+            exprtail
+              exprsel
+                plus
+                exprbase	y
+        statement
+          _
+          expression
+            exprbase
+              literal
+            exprtail
+              exprsel
+                vysl
+                exprbase	a
+        statement
+          _
+          expression
+            exprbase
+              expression
+                exprbase
+                  expression
+                    exprbase
+                      literal
+                    exprtail	vysl
+                exprtail
+                  exprsel
+                    greaterThan
+                    exprbase
+                      literal	0
+            exprtail
+              exprsel
+                ifTrue
+                exprbase
+                  literal
+                    block
+                      statement
+                        u
+                        expression
+                          exprbase
+                            literal
+                          exprtail
+                            exprsel
+                              vysl
+                              exprbase
+                                literal	1
+                ifFalse
+                exprbase
+                  literal
+                    block
+
