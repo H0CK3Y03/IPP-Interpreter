@@ -1,3 +1,7 @@
+# Author: Adam Vesely
+# Login: xvesela00
+# file: parse.py
+
 #!/usr/bin/env python3
 
 import sys # for parsing CLI arguments
@@ -73,6 +77,7 @@ parser = lark.Lark(SOL25, start="program", parser="lalr")
 assign_order_index = 1
 arg_order_index = 1
 selector_string_control = ""
+parameter_control = []
 
 # Extract the first comment from the source code
 def extract_first_comment(source_code):
@@ -80,14 +85,15 @@ def extract_first_comment(source_code):
     return match.group(1) if match else None
 
 def get_selector_arity(selector_string):
-    print(selector_string)
     return selector_string.count(":")
 
 def ast_to_xml(ast):
     global assign_order_index
     global arg_order_index
     global selector_string_control
+    global parameter_control
     if isinstance(ast, lark.Tree):
+
         if ast.data == "program":
             root = ET.Element("program", language="SOL25")
             description = extract_first_comment(file)
@@ -96,11 +102,13 @@ def ast_to_xml(ast):
             for child in ast.children:
                 root.append(ast_to_xml(child))
             return root
+        
         elif ast.data == "class":
             class_element = ET.Element("class", name=ast.children[0], parent=ast.children[1])
             for method in ast.children[2:]:
                 class_element.append(ast_to_xml(method))
             return class_element
+        
         elif ast.data == "method":
             # Extract the 'selector' subtree
             selector_tree = ast.children[0]  # First child is 'selector'
@@ -123,15 +131,17 @@ def ast_to_xml(ast):
             if len(parameters) != get_selector_arity(selector_string_control):
                 print("ERROR: Arity mismatch", file=sys.stderr)
                 sys.exit(33)
-                
+
             method_element.append(ast_to_xml(ast.children[1]))  # Block
             return method_element
+        
         elif ast.data == "block":
             assign_order_index = 1
             block_element = ET.Element("block")
             
-            # Determine arity: count only parameters
+            # Determine arity: count parameters
             parameters = [child for child in ast.children if isinstance(child, lark.Tree) and child.data == "parameter"]
+            parameter_control = [parameter.children[0].value for parameter in parameters]
             block_element.set("arity", str(len(parameters)))
             param_index = 1
             for child in ast.children:
@@ -142,9 +152,13 @@ def ast_to_xml(ast):
                 else:
                     block_element.append(ast_to_xml(child))
             return block_element
+        
         elif ast.data == "statement":
             assign_element = ET.Element("assign", order=str(assign_order_index))
             assign_order_index += 1
+            if ast.children[0] in parameter_control:
+                print("ERROR: Cannot assign to parameter", file=sys.stderr)
+                sys.exit(34)
             var_element = ET.Element("var", name=ast.children[0])
             expr_element = ET.Element("expr")
             expr_element.append(ast_to_xml(ast.children[1]))
@@ -155,7 +169,20 @@ def ast_to_xml(ast):
         elif ast.data == "literal":
             if isinstance(ast.children[0], lark.Tree) and ast.children[0].data == "block":
                 return ast_to_xml(ast.children[0])
-            return ET.Element("literal", {"class": "Integer", "value": ast.children[0]})
+             # Determine the class type based on the token type
+            if isinstance(ast.children[0], lark.Token):
+                if ast.children[0].type == "INTEGER":
+                    class_type = "Integer"
+                elif ast.children[0].type == "STRING":
+                    class_type = "String"
+                elif ast.children[0].type == "CLASS_NAME":
+                    class_type = ast.children[0].value  # Could be an object class
+                else:
+                    class_type = "Unknown"
+
+                return ET.Element("literal", {"class": class_type, "value": ast.children[0].value})
+
+            return ET.Element("literal", {"class": "Unknown", "value": str(ast.children[0])})
         
         elif ast.data == "expression":
             arg_order_index = 1
