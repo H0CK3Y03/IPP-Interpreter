@@ -1,116 +1,94 @@
-program
-  class
-    Main
-    Object
-    method
-      selector	run
-      block
-        statement
-          x
-          expression
-            exprbase
-              literal
-            exprtail
-              exprsel
-                compute
-                exprbase
-                  literal	3
-                and
-                exprbase
-                  literal	2
-                and
-                exprbase
-                  literal	5
-        statement
-          x
-          expression
-            exprbase
-              literal
-            exprtail
-              exprsel
-                plusOne
-                exprbase
-                  expression
-                    exprbase
-                      literal
-                    exprtail	vysl
-        statement
-          y
-          expression
-            exprbase	x
-            exprtail	asString
-    method
-      selector	plusOne
-      block
-        parameter	x
-        statement
-          r
-          expression
-            exprbase	x
-            exprtail
-              exprsel
-                plus
-                exprbase
-                  literal	1
-    method
-      selector
-        compute
-        and
-        and
-      block
-        parameter	x
-        parameter	y
-        parameter	z
-        statement
-          a
-          expression
-            exprbase	x
-            exprtail
-              exprsel
-                plus
-                exprbase	y
-        statement
-          _
-          expression
-            exprbase
-              literal
-            exprtail
-              exprsel
-                vysl
-                exprbase	a
-        statement
-          _
-          expression
-            exprbase
-              expression
-                exprbase
-                  expression
-                    exprbase
-                      literal
-                    exprtail	vysl
-                exprtail
-                  exprsel
-                    greaterThan
-                    exprbase
-                      literal	0
-            exprtail
-              exprsel
-                ifTrue
-                exprbase
-                  literal
-                    block
-                      statement
-                        u
-                        expression
-                          exprbase
-                            literal
-                          exprtail
-                            exprsel
-                              vysl
-                              exprbase
-                                literal	1
-                ifFalse
-                exprbase
-                  literal
-                    block
+[Tree('exprbase', [Token('VAR', 'x')]), Tree('exprtail', [Token('VAR', 'asString')])]
+[Tree('exprbase', [Token('VAR', 'self')]), Tree('exprtail', [Token('VAR', 'vysl')])]
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="SOL25" description="&lt;- definice metody - bezparametrický selektor run">
+  <class name="Main" parent="Object">
+    <method selector="run">
+      <block arity="0">
+        <assign order="1">
+          <var name="x"/>
+          <expr>
+            <send selector="compute:and:and:">
+              <expr>
+                <var name="self"/>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+        <assign order="2">
+          <var name="x"/>
+          <expr>
+            <send selector="plusOne:">
+              <expr>
+                <var name="self"/>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+        <assign order="3">
+          <var name="y"/>
+          <expr>
+            <unknownexpression/>
+          </expr>
+        </assign>
+      </block>
+    </method>
+    <method selector="plusOne:">
+      <block arity="1">
+        <parameter name="x" order="1"/>
+        <assign order="1">
+          <var name="r"/>
+          <expr>
+            <send selector="plus:">
+              <expr>
+                <var name="x"/>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+      </block>
+    </method>
+    <method selector="compute:and:and:">
+      <block arity="3">
+        <parameter name="x" order="1"/>
+        <parameter name="y" order="2"/>
+        <parameter name="z" order="3"/>
+        <assign order="1">
+          <var name="a"/>
+          <expr>
+            <send selector="plus:">
+              <expr>
+                <var name="x"/>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+        <assign order="2">
+          <var name="_"/>
+          <expr>
+            <send selector="vysl:">
+              <expr>
+                <var name="self"/>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+        <assign order="3">
+          <var name="_"/>
+          <expr>
+            <send selector="ifTrue:ifFalse:">
+              <expr>
+                <send selector="greaterThan:">
+                  <expr>
+                    <unknownexpression/>
+                  </expr>
+                </send>
+              </expr>
+            </send>
+          </expr>
+        </assign>
+      </block>
+    </method>
+  </class>
+</program>
 
