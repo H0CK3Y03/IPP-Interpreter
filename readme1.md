@@ -4,11 +4,11 @@
 
 ## Design Overview
 
-The parse.py script is designed to analyze source code written in SOL25 and convert it into XML according to the given specification.
+The parse.py script is designed to analyze source code written in SOL25 and convert it into XML according to the given specification while performing lexical analysis, syntactical analysis and semantical analysis.
 
 ## Internal Representation
 
-The script uses Lark to generate an Abstract Syntax Tree (AST) based on a defined grammar. This AST is then processed in three steps: validation, transformation, and XML generation.
+The script uses Lark to generate an Abstract Syntax Tree (AST) based on a defined grammar. This AST is then processed in three steps: lexical, synatctical and semantical validation, transformation, and XML generation.
 
 ## Implementation details
 
